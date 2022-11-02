@@ -11,7 +11,10 @@ public class Game extends JFrame {
     private JLabel countryCurent,cityCurent;
 
     private Dimension label=new Dimension(70,50);
-
+    private String cityAndCountry [][]=new String[10][2];
+    private JMenuBar menuBar;
+    JMenu menuCuntry = new JMenu("Kraj");
+    JMenu cityMenu = new JMenu("Stolica");
 
     public Game(){
         this.setTitle("Państwa-Miasta");
@@ -23,9 +26,10 @@ public class Game extends JFrame {
         this.setLayout(null);
     }
     private void addComponents(){
-        JMenuBar menuBar = new JMenuBar();
-        menuBar.add(countryMenu());
-        menuBar.add(cityMenu());
+         menuBar = new JMenuBar();
+        menuBar.add(setings());
+        menuBar.add(menuCuntry);
+        menuBar.add(cityMenu);
         this.setJMenuBar(menuBar);
             menuBar.setVisible(true);
         JPanel panel = new JPanel(null);
@@ -41,19 +45,32 @@ public class Game extends JFrame {
                 panel.add(cityCurent);
 
     }
-    private JMenu countryMenu(){
-        JMenu menuCuntry = new JMenu("Kraj");
-        menuCuntry.add(menuCuntry("Polska"));
-        menuCuntry.add(menuCuntry("Niemcy"));
-        menuCuntry.add(menuCuntry("Czechy"));
-        return  menuCuntry;
+    private  JMenuItem loadFromFile(){
+        JMenuItem plik=new JMenuItem("Wczytaj");
+            plik.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    String cmd =e.getActionCommand();
+                    if(cmd.equalsIgnoreCase("Wczytaj")) {
+                        try {
+                            FileMenager file = new FileMenager();
+                            cityAndCountry= file.wczytaj();
+                            for (int i=0;i<10;i++){
+                                menuCuntry.add(menuCuntry(cityAndCountry[i][0]));
+                                cityMenu.add(menuCity(cityAndCountry[i][1]));
+                            }
+                        } catch (Exception errorFile) {
+                            errorFile.printStackTrace();
+                        }
+                    }
+                }
+            });
+        return plik;
     }
-    private JMenu cityMenu(){
-        JMenu cityMenu = new JMenu("Stolica");
-        cityMenu.add(menuCity("Warszawa"));
-        cityMenu.add(menuCity("Berlin"));
-        cityMenu.add(menuCity("Praga"));
-        return  cityMenu;
+    JMenu setings(){
+        JMenu ustawienia=new JMenu("Ustawienia");
+        ustawienia.add(loadFromFile());
+        return ustawienia;
     }
     private JMenuItem menuCuntry(String name){
         JMenuItem tempCuntryName= new JMenuItem(name);
