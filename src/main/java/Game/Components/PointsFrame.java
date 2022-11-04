@@ -6,27 +6,29 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class PointsFrame extends JFrame {
-    private  JLabel socer;
-    PointsFrame(){
+    private JLabel socer;
+
+    PointsFrame() {
         this.setTitle("Państwa-Miasta-Punkty");
-        this.setBounds(300,200,400,200);
+        this.setBounds(300, 200, 400, 200);
         this.setDefaultCloseOperation(2);
         this.setResizable(false);
         this.setBackground(Color.cyan);
         addComponents();
     }
-    private void addComponents(){
-        JMenuBar menuBar= new JMenuBar();
+
+    private void addComponents() {
+        JMenuBar menuBar = new JMenuBar();
         JMenu setings = new JMenu("ustawienia");
-        JMenuItem close=new JMenuItem("Zamknij");
+        JMenuItem close = new JMenuItem("Zamknij");
         setings.add(close);
         menuBar.add(setings);
         JPanel panel = new JPanel(null);
         this.getContentPane().add(panel);
         panel.setVisible(true);
         panel.setBackground(Color.GRAY);
-        socer =new JLabel("");
-        socer.setBounds(100,50,100,50);
+        socer = new JLabel("");
+        socer.setBounds(100, 50, 100, 50);
         socer.setVisible(true);
         panel.add(socer);
         socer.setBackground(new Color(21376));
@@ -36,14 +38,15 @@ public class PointsFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String cmd = e.getActionCommand();
-                if(cmd.equalsIgnoreCase("Zamknij")){
+                if (cmd.equalsIgnoreCase("Zamknij")) {
                     dispose();
                 }
             }
         });
     }
-    void setSocer(int points){
-        socer.setText("Punkty : "+points);
+
+    void setSocer(int points) {
+        socer.setText("Punkty : " + points);
     }
 
 }

@@ -5,9 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="dea2bc21-7b0c-4f4b-8012-2e4a56690100" name="Changes" comment="Projekt-1 Państwa miasta">
-      <change afterPath="$PROJECT_DIR$/src/main/java/Game/Components/PointsFrame.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Game/Components/FileMenager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Game/Components/FileMenager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Game/Components/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Game/Components/Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Game/Components/PointsFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Game/Components/PointsFrame.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -93,7 +94,14 @@
       <option name="project" value="LOCAL" />
       <updated>1663520854094</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Projekt-1 Państwa miasta">
+      <created>1667568488069</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1667568488069</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

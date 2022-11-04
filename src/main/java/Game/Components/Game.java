@@ -7,7 +7,7 @@ import java.awt.event.ActionListener;
 
 public class Game extends JFrame {
     private String city = "", country = "";
-    private  int points=0;
+    private int points = 0;
 
     private JLabel countryCurent, cityCurent;
 
@@ -75,6 +75,7 @@ public class Game extends JFrame {
     JMenu setings() {
         JMenu ustawienia = new JMenu("Ustawienia");
         ustawienia.add(loadFromFile());
+        ustawienia.add(punkty());
         ustawienia.add(scoreFrame());
         return ustawienia;
     }
@@ -131,7 +132,7 @@ public class Game extends JFrame {
     }
 
     private void checkPoints() {
-        int city=-1, country=-1;
+        int city = -1, country = -1;
         for (int i = 0; i < 10; i++) {
             if (cityCurent.getText().equalsIgnoreCase(cityAndCountry[i][1])) {
                 city = i;
@@ -152,18 +153,32 @@ public class Game extends JFrame {
 
             }
         }
-        if(city==country&&(city<=0&&country<=0)){
-            points=points+1;
-            countryCurent = null;
-            cityCurent = null;
-            System.out.println("Get point : "+points);
-        } else if (city!=country&&(city<=0&&country<=0)) {
-            points=0;
-            countryCurent = null;
-            cityCurent = null;
+        if (city == country && (city >= 0 && country >= 0)) {
+            points = points + 1;
+            countryCurent.setText("");
+            cityCurent.setText("");
+            System.out.println("Get point : " + points);
+        } else if (city != country && (city >= 0 && country >= 0)) {
+            points = 0;
+            countryCurent.setText("");
+            cityCurent.setText("");
             System.out.println("Loose all points");
-        }else {
+        } else {
             System.out.println("Nothing");
         }
+    }
+
+    private JMenuItem punkty() {
+        JMenuItem punkty = new JMenuItem("Punkty");
+        punkty.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String cmd = e.getActionCommand();
+                if (cmd.equalsIgnoreCase("Punkty")) {
+                    frame1.setSocer(points);
+                }
+            }
+        });
+        return punkty;
     }
 }
