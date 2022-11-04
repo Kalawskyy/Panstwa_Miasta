@@ -9,12 +9,13 @@ public class Game extends JFrame {
     private String city = "", country = "";
     private int points = 0;
 
-    private JLabel countryCurent, cityCurent;
-
+    private JLabel countryCurent, cityCurent,punktyGlowne;
+    private JCheckBoxMenuItem scoreFrame, mainPoins,console;
     private Dimension label = new Dimension(70, 50);
     private String cityAndCountry[][] = new String[10][2];
     private JMenuBar menuBar;
     private PointsFrame frame1;
+  private   PointsConsole console1;
     private JMenu menuCuntry = new JMenu("Kraj");
     private JMenu cityMenu = new JMenu("Stolica");
 
@@ -35,20 +36,45 @@ public class Game extends JFrame {
         menuBar.add(cityMenu);
         this.setJMenuBar(menuBar);
         menuBar.setVisible(true);
+        //Panel
         JPanel panel = new JPanel(null);
         this.getContentPane().add(panel);
         panel.setBackground(Color.GRAY);
+        //kraj
         countryCurent = new JLabel(country);
         countryCurent.setLocation(200, 30);
         countryCurent.setSize(label);
         panel.add(countryCurent);
+        //miasto
         cityCurent = new JLabel(city);
         cityCurent.setLocation(300, 30);
         cityCurent.setSize(label);
         panel.add(cityCurent);
-
+        //punkty
+        punktyGlowne = new JLabel("Punkty : "+points);
+        punktyGlowne.setBounds(200,100,100,50);
+        punktyGlowne.setVisible(false);
+        panel.add(punktyGlowne);
     }
+    private JCheckBoxMenuItem mainPoints(){
+        mainPoins=new JCheckBoxMenuItem("Glowne okno");
+        mainPoins.setActionCommand("mainPunkt");
+            mainPoins.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    String cmd = e.getActionCommand();
+                    if(cmd.equalsIgnoreCase("mainPunkt")){
+                        if(mainPoins.getState()){
+                            punktyGlowne.setVisible(true);
+                        }else{
+                            punktyGlowne.setVisible(false);
+                        }
+                    }
+                }
+            });
 
+        return mainPoins;
+    }
     private JMenuItem loadFromFile() {
         JMenuItem plik = new JMenuItem("Wczytaj");
         plik.addActionListener(new ActionListener() {
@@ -77,26 +103,41 @@ public class Game extends JFrame {
         ustawienia.add(loadFromFile());
         ustawienia.add(punkty());
         ustawienia.add(scoreFrame());
+        ustawienia.add(mainPoints());
+        ustawienia.add(consolePoints());
+        ustawienia.add(showHideAll());
         return ustawienia;
     }
 
     JCheckBoxMenuItem scoreFrame() {
-        JCheckBoxMenuItem scoreFrame = new JCheckBoxMenuItem("Okienko");
+        scoreFrame = new JCheckBoxMenuItem("Okienko");
         frame1 = new PointsFrame();
         scoreFrame.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String cmd = e.getActionCommand();
-                if (cmd.equalsIgnoreCase("Okienko")) {
                     if (scoreFrame.getState()) {
                         frame1.setVisible(true);
                     } else {
                         frame1.setVisible(false);
                     }
-                }
             }
         });
         return scoreFrame;
+    }
+    JCheckBoxMenuItem consolePoints(){
+        console=new JCheckBoxMenuItem("Konsola");
+        console1=new PointsConsole();
+        console.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                   if (console.getState()){
+                       console1.consoleStatusSwich(true);
+                   }else {
+                    console1.consoleStatusSwich(false);
+                }
+            }
+        });
+        return console;
     }
 
     private JMenuItem menuCuntry(String name) {
@@ -157,14 +198,14 @@ public class Game extends JFrame {
             points = points + 1;
             countryCurent.setText("");
             cityCurent.setText("");
-            System.out.println("Get point : " + points);
+            console1.addPoints();
         } else if (city != country && (city >= 0 && country >= 0)) {
             points = 0;
             countryCurent.setText("");
             cityCurent.setText("");
-            System.out.println("Loose all points");
+           console1.losePoints();
         } else {
-            System.out.println("Nothing");
+
         }
     }
 
@@ -173,12 +214,31 @@ public class Game extends JFrame {
         punkty.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String cmd = e.getActionCommand();
-                if (cmd.equalsIgnoreCase("Punkty")) {
                     frame1.setSocer(points);
+                    punktyGlowne.setText("Punkty : "+points);
+                    console1.getPoints(points);
                 }
-            }
         });
         return punkty;
+    }
+    private JCheckBoxMenuItem showHideAll(){
+        JCheckBoxMenuItem  allPoints=new JCheckBoxMenuItem("On all/Off all");
+        allPoints.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                    if (allPoints.getState()){
+                        console.setState(true);
+                        mainPoins.setState(true);
+                        scoreFrame.setState(true);
+                    }else {
+                        console.setState(false);
+                        mainPoins.setState(false);
+                        scoreFrame.setState(false);
+                    }
+                }
+
+        });
+        return allPoints;
     }
 }
